@@ -1,38 +1,17 @@
+                                        //Kth largest element in an array
+
 import java.util.Arrays;
+import java.util.Collections;
 
-public class arrays {
-    public static void repeat(int arr[]) {
-        Arrays.sort(arr);
-        for (int i = 0; i < arr.length-1; i++) {
-            if (arr[i] == arr[i + 1]) {
-                System.out.println(arr[i]);
-                break;
-            }
+public class arrays{
+    public static int Kth_largest_element(Integer arr[],int k){
+        Arrays.sort(arr, Collections.reverseOrder());
 
-            if(i==arr.length-2){
-                System.out.println("there is no repeating number");
-            }
-        }
+        return arr[k-1];
     }
 
-    public static void missing(int arr[]) {
-        Arrays.sort(arr);
-        for (int i = 1; i < arr.length; i++) {
-            int ans=arr[i]-1;
-            if(ans!=arr[i-1]){
-                System.out.println(ans);
-                break;
-            }
-
-            if(i==arr.length-1){
-                System.out.println("there is no missing number");
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        int arr[] = {1,5,4,8,7,9,3 };
-        repeat(arr);
-        missing(arr);
+    public static void main(String[] args){
+        Integer arr [] = {12,3,5,7,19};
+        System.out.println(Kth_largest_element(arr, 2));
     }
 }
