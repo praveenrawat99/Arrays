@@ -1,31 +1,38 @@
-public class arrays{
-    public static int buy_and_sell_stock(int arr[]){
-        int min_price=Integer.MAX_VALUE;
-        int total_profit=0;
-        int profit_if_sold_today=0;
+import java.util.Arrays;
 
-        for(int i=0;i<arr.length;i++){
-            if(arr[i]<min_price){
-                min_price=arr[i];
+public class arrays {
+    public static void repeat(int arr[]) {
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length-1; i++) {
+            if (arr[i] == arr[i + 1]) {
+                System.out.println(arr[i]);
+                break;
             }
 
-            profit_if_sold_today=arr[i]-min_price;
-            if(total_profit<profit_if_sold_today){
-                total_profit=profit_if_sold_today;
+            if(i==arr.length-2){
+                System.out.println("there is no repeating number");
             }
         }
-        return total_profit;
     }
-    public static void main(String[] args){
-        int arr[]={7,1,5,3,6,4};
-        System.out.println(buy_and_sell_stock(arr));
+
+    public static void missing(int arr[]) {
+        Arrays.sort(arr);
+        for (int i = 1; i < arr.length; i++) {
+            int ans=arr[i]-1;
+            if(ans!=arr[i-1]){
+                System.out.println(ans);
+                break;
+            }
+
+            if(i==arr.length-1){
+                System.out.println("there is no missing number");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {1,5,4,8,7,9,3 };
+        repeat(arr);
+        missing(arr);
     }
 }
-
-/*approach
- * 
- * we have to buy a stock with min.. price so initially we take the value of min_price is 
- * MAX after that we run a loop by which we find the min_price
- * after that we will check the profit if sold today on each iteration 
- * if total profit is less than profit if sold today so we update the value and return the total profit
- */
