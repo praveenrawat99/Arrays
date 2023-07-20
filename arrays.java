@@ -1,33 +1,31 @@
-                                  //chocolate distribution problem
-
-import java.util.Arrays;
-
 public class arrays{
-    public static int chocolate_distribution(int arr[],int m){
-        Arrays.sort(arr);
-        int min_diff=Integer.MAX_VALUE;
-        for(int i=0;i+m-1<arr.length;i++){
-            if(min_diff>arr[i+m-1]-arr[i]){
-                min_diff=arr[i+m-1]-arr[i];
+    public static int buy_and_sell_stock(int arr[]){
+        int min_price=Integer.MAX_VALUE;
+        int total_profit=0;
+        int profit_if_sold_today=0;
+
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]<min_price){
+                min_price=arr[i];
+            }
+
+            profit_if_sold_today=arr[i]-min_price;
+            if(total_profit<profit_if_sold_today){
+                total_profit=profit_if_sold_today;
             }
         }
-        return min_diff;
+        return total_profit;
     }
     public static void main(String[] args){
-        int arr[]={7,3,2,4,9,12,56};
-        System.out.println(chocolate_distribution(arr, 3));
+        int arr[]={7,1,5,3,6,4};
+        System.out.println(buy_and_sell_stock(arr));
     }
 }
 
-/*In this question 
- * we have to distribute the chocolate packets in such a way that each student get 
- * min.. no. of chocolates such that the difference b/w max.. and min.. no. of chocolates is min..
+/*approach
  * 
- * so the approach is first we have to sort an array after that we have to write a condition 
- * by which we easily distribute chocolates
- * 
- * first we run the loop from i=0; and we have set the value of i with m in simple words we have to run the 
- * loop with difference of m  i+m-1<arr.length
- * after all of that we will find difference initially we take the min_diff +infinite then we check it from
- * the condition if arr[i+m-1]-arr[i] will give the min.. diff so we will update the min_diff and return it from the loop
+ * we have to buy a stock with min.. price so initially we take the value of min_price is 
+ * MAX after that we run a loop by which we find the min_price
+ * after that we will check the profit if sold today on each iteration 
+ * if total profit is less than profit if sold today so we update the value and return the total profit
  */
