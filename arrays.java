@@ -1,26 +1,49 @@
-                                         //maximum product Sub_array
+                                    //minimum in rotated sorted array
 public class arrays{
-    public static int max_product(int arr[]){
-        int max_product=Integer.MIN_VALUE;
-        int current_product=1;
-        
-        for(int i=0;i<arr.length;i++){
-            current_product*=arr[i];
-            if(current_product<=0){
-                current_product=0;
+    public static int min(int arr[],int si,int ei){
+        while(si<ei){
+            int mid=si+(ei-si)/2;
+            if(arr[mid+1]<arr[mid]){
+                return arr[mid+1];
+            }else if(arr[mid-1]>arr[mid]){
+                return arr[mid];
+            }else if(arr[mid]<arr[ei]){
+                ei=mid-1;
+            }else{
+                si=mid+1;
             }
-            max_product=Math.max(max_product, current_product);
         }
-        return max_product;
+        return arr[si];
+    }
+
+    public static int max(int arr[],int si,int ei){
+        while (si < ei) {
+            int mid=si+(ei-si)/2;
+            if(arr[mid+1]<arr[mid]){
+                return arr[mid];
+            }else if(arr[mid-1]>arr[mid]){
+                return arr[mid-1];
+            }else if(arr[mid]<arr[si]){
+                ei=mid-1;
+            }else{
+                si=mid+1;
+            }
+        }
+        return arr[si];
     }
     public static void main(String[] args){
-        int arr[]={2,3,-2,4};
-        System.out.println("Maximum Product sub array is : "+ max_product(arr));
+        int arr[]={4,5,6,7,0,1,2};
+        System.out.println(min(arr, 0, arr.length-1));
+        System.out.println(max(arr, 0, arr.length-1));
     }
 }
 
 
 
-/*HINT
- * kadane's algorithm
+
+
+
+
+/*
+ * here we used optimised binary search
  */
