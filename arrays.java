@@ -1,17 +1,26 @@
-                                        //Kth largest element in an array
-
-import java.util.Arrays;
-import java.util.Collections;
-
+                                         //maximum product Sub_array
 public class arrays{
-    public static int Kth_largest_element(Integer arr[],int k){
-        Arrays.sort(arr, Collections.reverseOrder());
-
-        return arr[k-1];
+    public static int max_product(int arr[]){
+        int max_product=Integer.MIN_VALUE;
+        int current_product=1;
+        
+        for(int i=0;i<arr.length;i++){
+            current_product*=arr[i];
+            if(current_product<=0){
+                current_product=0;
+            }
+            max_product=Math.max(max_product, current_product);
+        }
+        return max_product;
     }
-
     public static void main(String[] args){
-        Integer arr [] = {12,3,5,7,19};
-        System.out.println(Kth_largest_element(arr, 2));
+        int arr[]={2,3,-2,4};
+        System.out.println("Maximum Product sub array is : "+ max_product(arr));
     }
 }
+
+
+
+/*HINT
+ * kadane's algorithm
+ */
