@@ -1,49 +1,37 @@
-                                    //minimum in rotated sorted array
-public class arrays{
-    public static int min(int arr[],int si,int ei){
-        while(si<ei){
-            int mid=si+(ei-si)/2;
-            if(arr[mid+1]<arr[mid]){
-                return arr[mid+1];
-            }else if(arr[mid-1]>arr[mid]){
-                return arr[mid];
-            }else if(arr[mid]<arr[ei]){
-                ei=mid-1;
-            }else{
-                si=mid+1;
-            }
-        }
-        return arr[si];
-    }
+import java.util.HashSet;
 
-    public static int max(int arr[],int si,int ei){
-        while (si < ei) {
-            int mid=si+(ei-si)/2;
-            if(arr[mid+1]<arr[mid]){
-                return arr[mid];
-            }else if(arr[mid-1]>arr[mid]){
-                return arr[mid-1];
-            }else if(arr[mid]<arr[si]){
-                ei=mid-1;
-            }else{
-                si=mid+1;
+public class arrays{
+    public static void three_sum(int arr[]){
+        boolean found = true;
+        for(int i=0;i<arr.length-1;i++){
+            HashSet<Integer> set=new HashSet<>();
+            for(int j=i+1;j<arr.length;j++){
+                int X=-(arr[i]+arr[j]);
+                if(set.contains(X)){
+                    System.out.println("Triplet is: "+arr[i]+" , "+arr[j]+" , "+X);
+                    found=true;
+                }else{
+                    set.add(arr[j]);
+                }
             }
         }
-        return arr[si];
+        if(found==false){
+            System.out.println("no triplet");
+        }
     }
     public static void main(String[] args){
-        int arr[]={4,5,6,7,0,1,2};
-        System.out.println(min(arr, 0, arr.length-1));
-        System.out.println(max(arr, 0, arr.length-1));
+        int arr[]={-1,0,1,2,-1,-4};
+        three_sum(arr);
     }
 }
 
 
-
-
-
-
-
-/*
- * here we used optimised binary search
+/*for this question 
+ * we have to find the triplets with zero sum
+ * so we run a loop from int i=0 to i=arr.length-2
+ * we will implement a HashSet 
+ * after that we run a second nested loop from j=i+1 to j=arr.length-1
+ * after this we check a condition int X=-(arr[i]+arr[j])
+ * if X is already present in the set so we will get triplets with zero sum 
+ * if not so we will add arr[j] in the set
  */
