@@ -1,46 +1,32 @@
-public class arrays {
-    public static boolean pair_sum(int arr[], int n, int x) {
-        // Find the pivot element
-        int i;
-        for (i = 0; i < n - 1; i++)
-            if (arr[i] > arr[i + 1])
-                break;
+public class arrays{
+    public static void product_of_array_except_itself(int arr[]){
+        int res[]=new int[arr.length];
+        int product_of_all_before_ith_element=1;
+        int product_of_all_after_ith_element=1;
 
-        // l is now index of smallest element
-        int l = (i + 1) % n;
-
-        // r is now index of largest element
-        int r = i;
-
-        // Keep moving either l or r till they meet
-        while (l != r) {
-            // If we find a pair with sum x, we
-            // return true
-            if (arr[l] + arr[r] == x)
-                return true;
-
-            // If current pair sum is less, move
-            // to the higher sum
-            if (arr[l] + arr[r] < x)
-                l = (l + 1) % n;
-
-            // Move to the lower sum side
-            else
-                r = (n + r - 1) % n;
+        for(int i=0;i<arr.length;i++){
+            res[i]=product_of_all_before_ith_element;
+            product_of_all_before_ith_element*=arr[i];
         }
-        return false;
+
+        // System.out.println(Arrays.toString(arr));
+        // System.out.println(Arrays.toString(res));
+
+        for(int i=arr.length-1;i>=0;i--){
+            res[i]*=product_of_all_after_ith_element;
+            product_of_all_after_ith_element*=arr[i];
+        }
+        
+        for(int i=0;i<res.length;i++){
+            System.out.print(res[i]+"  ");
+        }
     }
-
-    public static void main(String[] args) {
-        int arr[] = { 11, 15, 6, 8, 9, 10 };
-        if (pair_sum(arr, arr.length, 25)) {
-            System.out.println("true");
-        } else {
-            System.out.println("false");
-        }
+    public static void main(String[] args){
+        int arr[]={1,2,3,4};
+        product_of_array_except_itself(arr);
     }
 }
 
 /*
- * here we used two pointer approach
+ * here we used previous sum algorithm
  */
