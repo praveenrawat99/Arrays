@@ -1,32 +1,52 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class arrays{
-    public static void product_of_array_except_itself(int arr[]){
-        int res[]=new int[arr.length];
-        int product_of_all_before_ith_element=1;
-        int product_of_all_after_ith_element=1;
+    public static class Interval{
+        int start,end;
 
-        for(int i=0;i<arr.length;i++){
-            res[i]=product_of_all_before_ith_element;
-            product_of_all_before_ith_element*=arr[i];
+        Interval(int start,int end){
+            this.start = start;
+            this.end = end;
         }
+    }
 
-        // System.out.println(Arrays.toString(arr));
-        // System.out.println(Arrays.toString(res));
+    public static void merge_intervals(Interval arr[]){
+        Arrays.sort(arr,new Comparator<Interval>() {
+            public int compare(Interval i1,Interval i2){
+                return i1.start-i2.start;
+            }
+        });
 
-        for(int i=arr.length-1;i>=0;i--){
-            res[i]*=product_of_all_after_ith_element;
-            product_of_all_after_ith_element*=arr[i];
+        int index=0;
+        for(int i=1;i<arr.length;i++){
+            if(arr[index].end>=arr[i].start){
+                arr[index].end=Math.max(arr[index].end, arr[i].end);
+            }else{
+                index++;
+                arr[index]=arr[i];
+            }
         }
-        
-        for(int i=0;i<res.length;i++){
-            System.out.print(res[i]+"  ");
+        System.out.println("Merged intervals : ");
+        for(int i=0;i<=index;i++){
+            System.out.println("[" + arr[i].start + "," + arr[i].end + "]");
         }
     }
     public static void main(String[] args){
-        int arr[]={1,2,3,4};
-        product_of_array_except_itself(arr);
+        Interval arr[] = new Interval[4];
+        arr[0] = new Interval(6, 8);
+        arr[1] = new Interval(1, 9);
+        arr[2] = new Interval(2, 4);
+        arr[3] = new Interval(4, 7);
+        merge_intervals(arr);
     }
 }
 
+
+//here we are doing comparison based sorting
+//here we start from a static class it helps us in comparison based sorting
 /*
- * here we used previous sum algorithm
+ * first we make a class then we push our input in comparison based sorting
+ * then we write a condition for compare the first element with the second then
+ * if we find some clues then we do merge of last element of previous and the current element
  */
