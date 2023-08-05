@@ -1,52 +1,30 @@
-import java.util.Arrays;
-import java.util.Comparator;
-
 public class arrays{
-    public static class Interval{
-        int start,end;
+    public static int make_array_palindrome(int arr[]){
+        int operations=0;
 
-        Interval(int start,int end){
-            this.start = start;
-            this.end = end;
-        }
-    }
-
-    public static void merge_intervals(Interval arr[]){
-        Arrays.sort(arr,new Comparator<Interval>() {
-            public int compare(Interval i1,Interval i2){
-                return i1.start-i2.start;
-            }
-        });
-
-        int index=0;
-        for(int i=1;i<arr.length;i++){
-            if(arr[index].end>=arr[i].start){
-                arr[index].end=Math.max(arr[index].end, arr[i].end);
+        for(int i=0,j=arr.length-1;i<=j;){
+            if(arr[i]==arr[j]){
+                j--;
+                i++;
+            }else if(arr[i]<arr[j]){
+                i++;
+                arr[i]+=arr[i-1];
+                operations++;
             }else{
-                index++;
-                arr[index]=arr[i];
+                j--;
+                arr[j]+=arr[j+1];
+                operations++;
             }
         }
-        System.out.println("Merged intervals : ");
-        for(int i=0;i<=index;i++){
-            System.out.println("[" + arr[i].start + "," + arr[i].end + "]");
-        }
+        return operations;
     }
     public static void main(String[] args){
-        Interval arr[] = new Interval[4];
-        arr[0] = new Interval(6, 8);
-        arr[1] = new Interval(1, 9);
-        arr[2] = new Interval(2, 4);
-        arr[3] = new Interval(4, 7);
-        merge_intervals(arr);
+        int arr[]={11,14,15,99};
+
+        System.out.println(make_array_palindrome(arr));
     }
 }
 
-
-//here we are doing comparison based sorting
-//here we start from a static class it helps us in comparison based sorting
 /*
- * first we make a class then we push our input in comparison based sorting
- * then we write a condition for compare the first element with the second then
- * if we find some clues then we do merge of last element of previous and the current element
+ * here we used two pointer approach
  */
