@@ -1,22 +1,25 @@
 public class arrays{
-    public static void print_subarrays(int arr[]){
-        int total_subarrays=0;
+    public static int max_subarray_sum(int arr[]){
+        int curr_sum=0;
+        int max_sum=Integer.MIN_VALUE;
+
         for(int i=0;i<arr.length;i++){
             int start=i;
             for(int j=i;j<arr.length;j++){
                 int end=j;
+                curr_sum=0;
                 for(int k=start;k<=end;k++){
-                    System.out.print(arr[k]+"  ");
-                    total_subarrays++;
+                    curr_sum+=arr[k];
+                    if(curr_sum>max_sum){
+                        max_sum=curr_sum;
+                    }
                 }
-                System.out.println();
             }
-            System.out.println();
         }
-        System.out.println("total subarrays = " + total_subarrays);
+        return max_sum;
     }
     public static void main(String[] args){
-        int arr[]={2,4,6,8,10};
-        print_subarrays(arr);
+        int arr[]={1,-2,6,-1,3};
+        System.out.println(max_subarray_sum(arr));
     }
 }
