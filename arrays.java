@@ -1,21 +1,31 @@
 public class arrays{
-    public static int kadane_s(int arr[]){
-        int max_sum=Integer.MIN_VALUE;
-        int curr_sum=0;
-
-        for(int i=0;i<arr.length;i++){
-            curr_sum=Math.max(arr[i], curr_sum+arr[i]);
-            max_sum=Math.max(max_sum, curr_sum);
+    public static int trapping_rain_water(int height[]){
+        int leftmax[]=new int[height.length];
+        leftmax[0]=height[0];
+        for(int i=1;i<height.length;i++){
+            leftmax[i]=Math.max(height[i], leftmax[i-1]);
         }
-        return max_sum;
+
+        int rightmax[]=new int[height.length];
+        rightmax[height.length-1]=height[height.length-1];
+        for(int i=height.length-2;i>=0;i--){
+            rightmax[i]=Math.max(height[i], rightmax[i+1]);
+        }
+
+        int trapped_rainwater=0;
+        for(int i=0;i<height.length;i++){
+            int waterlevel=Math.min(leftmax[i],rightmax[i]);
+            trapped_rainwater+=waterlevel-height[i];
+        }
+        return trapped_rainwater;
     }
     public static void main(String[] args){
-        int arr[]={1,-2,6,-1,3};
-        System.out.println("Max sum is = "+kadane_s(arr));
+        int height[]={4,2,0,6,3,2,5};
+        System.out.println(trapping_rain_water(height));
     }
 }
 
 
 /*
- * kadane's algorithm
+"Two-Pass" approach or the "Precomputation" approach.
  */
